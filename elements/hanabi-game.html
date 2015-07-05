@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="hanabi-card.html">
+<link rel="import" href="hanabi-player.html">
+
+<dom-module id="hanabi-game">
+  <style>
+
+  </style>
+
+  <template>
+    <template is="dom-repeat" items="{{players}}">
+      <hanabi-player current-player="{{item.currentPlayer}}" cards="{{item.cards}}"></hanabi-card>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: "hanabi-game",
+      ready: function() {
+        this.players = [
+          {
+            currentPlayer: true,
+            cards : [
+              {
+                type: 'heart',
+                value: '8'
+              },
+              {
+                type: 'club',
+                value: 'K'
+              }
+            ]
+          },
+          {
+            currentPlayer: false,
+            cards : [
+              {
+                type: 'diamond',
+                value: 'Q'
+              },
+              {
+                type: 'spade',
+                value: 'king'
+              }
+            ]
+          }
+        ];
+      }
+    });
+  </script>
+</dom-module>

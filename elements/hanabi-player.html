@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="hanabi-player">
+  <style>
+    :host {
+      display: inline-block;
+      height: 250px;
+      width: 250px;
+    }
+
+    :host[current-player] {
+      background-color: yellow;
+    }
+  </style>
+
+  <template>
+    <template is="dom-repeat" items="{{cards}}">
+      <hanabi-card type="{{item.type}}" value="{{item.value}}"></hanabi-card>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: "hanabi-player",
+
+      properties: {
+        currentPlayer: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+        cards: {
+          type: Array
+        }
+      }
+    });
+  </script>
+</dom-module>

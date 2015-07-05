@@ -1,0 +1,29 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="hanabi-card">
+  <style>
+    :host[type='heart'], :host[type='diamond'] {
+      color: red;
+    }
+  </style>
+
+  <template>
+    <p>This is a <span>{{value}}</span></p>
+  </template>
+
+  <script>
+    Polymer({
+      is: "hanabi-card",
+
+      properties: {
+        type: {
+          type: String,
+          reflectToAttribute: true
+        },
+        value: {
+          type: String
+        }
+      }
+    });
+  </script>
+</dom-module>
