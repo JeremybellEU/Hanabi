@@ -1,0 +1,21 @@
+{
+  "name": "Hanabi",
+  "version": "0.1-ALPHA",
+  "homepage": "https://github.com/JeremybellEU/Hanabi",
+  "authors": [
+    "Tim van der Lippe <tvanderlippe@gmail.com>"
+  ],
+  "description": "The multi-player cooperative cardgame Hanabi",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}
