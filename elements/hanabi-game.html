@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="hanabi-card.html">
 <link rel="import" href="hanabi-player.html">
+<link rel="import" href="hanabi-reveal.html">
 
 <dom-module id="hanabi-game">
   <style>
@@ -9,7 +10,7 @@
 
   <template>
     <template is="dom-repeat" items="{{players}}">
-      <hanabi-player current-player="{{item.currentPlayer}}" cards="{{item.cards}}"></hanabi-card>
+      <hanabi-player current-player="{{item.currentPlayer}}" cards="{{item.cards}}"></hanabi-player>
     </template>
   </template>
 
@@ -22,12 +23,24 @@
             currentPlayer: true,
             cards : [
               {
-                type: 'heart',
-                value: '8'
+                color: 'red',
+                value: '1',
+                unknownColor: true
               },
               {
-                type: 'club',
-                value: 'K'
+                color: 'green',
+                value: '2',
+                unknownColor: true
+              },
+              {
+                color: 'red',
+                value: '1',
+                unknownColor: true
+              },
+              {
+                color: 'green',
+                value: '2',
+                unknownColor: true
               }
             ]
           },
@@ -35,12 +48,24 @@
             currentPlayer: false,
             cards : [
               {
-                type: 'diamond',
-                value: 'Q'
+                color: 'blue',
+                value: '3',
+                unknownColor: true
               },
               {
-                type: 'spade',
-                value: 'king'
+                color: 'yellow',
+                value: '4',
+                unknownColor: true
+              },
+              {
+                color: 'red',
+                value: '1',
+                unknownColor: true
+              },
+              {
+                color: 'green',
+                value: '2',
+                unknownColor: true
               }
             ]
           }

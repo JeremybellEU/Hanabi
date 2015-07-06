@@ -3,20 +3,32 @@
 <dom-module id="hanabi-player">
   <style>
     :host {
-      display: inline-block;
-      height: 250px;
-      width: 250px;
+      border: black 3px solid;
+      display: block;
+      height: 175px;
+      width: 750px;
     }
 
     :host[current-player] {
       background-color: yellow;
     }
+
+    div {
+      display: flex;
+    }
   </style>
 
   <template>
-    <template is="dom-repeat" items="{{cards}}">
-      <hanabi-card type="{{item.type}}" value="{{item.value}}"></hanabi-card>
-    </template>
+    <div>
+      <template is="dom-repeat" items="{{cards}}" id="cards">
+        <hanabi-card color="{{item.color}}" value="{{item.value}}" unknownColor="{{item.unknownColor}}"></hanabi-card>
+      </template>
+    </div>
+
+    <div>
+      <hanabi-reveal type="color"></hanabi-reveal>
+      <hanabi-reveal type="value"></hanabi-reveal>
+    </div>
   </template>
 
   <script>
@@ -31,6 +43,24 @@
         cards: {
           type: Array
         }
+      },
+
+      revealListener: function(type, value) {
+        console.log(type, value, " has been revealed.");
+
+        var i = 0;
+
+        var that = this;
+
+        this.cards.forEach(function(card) {
+          if (card[type] == value) {
+            that.set("cards." + i + ".unknown" + type.charAt(0).toUpperCase() + type.slice(1), false);
+          }
+
+          i++;
+        });
+
+        console.log(this.cards);
       }
     });
   </script>

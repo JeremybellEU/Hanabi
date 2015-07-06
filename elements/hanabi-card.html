@@ -1,14 +1,52 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-
 <dom-module id="hanabi-card">
   <style>
-    :host[type='heart'], :host[type='diamond'] {
+    :host {
+      border: black 5px solid;
+      flex: 1;
+      font-size: 50px;
+      line-height: 60px;
+      margin: 5px;
+      text-align: center;
+    }
+
+    span {
+      display: block;
+    }
+
+    :host[unknown-color] .color {
+      color: black;
+    }
+
+    :host[unknown-value] .value {
+      color: black;
+    }
+
+    :host[color='blue'] {
+      border-color: blue;
+      color: blue;
+    }
+
+    :host[color='red'] {
+      border-color: red;
       color: red;
+    }
+
+    :host[color='green'] {
+      border-color: green;
+      color: green;
+    }
+
+    :host[color='yellow'] {
+      border-color: yellow;
+      color: yellow;
     }
   </style>
 
   <template>
-    <p>This is a <span>{{value}}</span></p>
+    <div>
+      <span class="color">{{color}}</span>
+      <span class="value">{{value}}</span>
+    </div>
   </template>
 
   <script>
@@ -16,12 +54,24 @@
       is: "hanabi-card",
 
       properties: {
-        type: {
+        color: {
           type: String,
           reflectToAttribute: true
         },
         value: {
           type: String
+        },
+        unknownColor: {
+          type: Boolean,
+          value: true,
+          notify: true,
+          reflectToAttribute: true
+        },
+        unknownValue: {
+          type: Boolean,
+          value: true,
+          notify: true,
+          reflectToAttribute: true
         }
       }
     });

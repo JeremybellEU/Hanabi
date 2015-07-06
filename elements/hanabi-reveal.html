@@ -1,0 +1,64 @@
+<dom-module id="hanabi-reveal">
+  <style>
+    :host {
+      flex: 1;
+      height: 20px;
+    }
+
+    div {
+      display: flex;
+    }
+
+    select {
+      margin-left: auto;
+    }
+
+    button {
+      margin-right: auto;
+    }
+  </style>
+
+  <template>
+    <div>
+      <select id="select">
+        <template is="dom-repeat" items={{items}}>
+          <option>{{item}}</option>
+        </template>
+      </select>
+      <button on-click="reveal">Hint the <span>{{type}}</span>.</button>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "hanabi-reveal",
+
+      properties: {
+        type: {
+          type: String,
+          reflectToAttribute: true
+        },
+        items: {
+          type: Array
+        },
+        selected: {
+          type: String,
+          value: 0
+        }
+      },
+
+      ready: function() {
+        if (this.type === "color") {
+          this.items = ["blue", "green", "red", "yellow"];
+        }
+        else {
+          this.items = [1, 2, 3, 4, 5];
+        }
+      },
+
+      reveal: function(event, detail, sender) {
+        this.domHost.revealListener(this.type, this.$.select.value);
+      }
+    });
+  </script>
+</dom-module>
