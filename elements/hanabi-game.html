@@ -1,19 +1,37 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="hanabi-card.html">
 <link rel="import" href="hanabi-player.html">
 <link rel="import" href="hanabi-reveal.html">
 
 <dom-module id="hanabi-game">
   <style>
-
+    #gameInfo {
+      clear: left;
+    }
   </style>
 
   <template>
-    <template is="dom-repeat" items="{{players}}">
-      <hanabi-player cards="{{item.cards}}"></hanabi-player>
-    </template>
-    <p>Number of hints left: <span>{{numberOfHints}}</span></p>
-    <p>Number of lives left: <span>{{numberOfLives}}</span></p>
+    <iron-ajax id="createGameRequest"
+      url="http://localhost:9000/game/create"
+      on-response="fetchGame"
+      handle-as="json"></iron-ajax>
+
+    <iron-ajax id="getGameRequest"
+      url="http://localhost:9000/game/1/1"
+      handle-as="json"
+      last-response="{{game}}"></iron-ajax>
+
+    <div id="players">
+      <template is="dom-repeat" items="{{game.players}}">
+        <hanabi-player cards="{{item.cards}}"></hanabi-player>
+      </template>
+    </div>
+
+    <div id="gameInfo">
+      <p>Number of hints left: <span>{{numberOfHints}}</span></p>
+      <p>Number of lives left: <span>{{numberOfLives}}</span></p>
+    </div>
   </template>
 
   <script>
@@ -28,6 +46,9 @@
         numberOfLives: {
           type: Number,
           value: 3
+        },
+        game: {
+          type: Object
         }
       },
 
@@ -39,30 +60,12 @@
         this.set("numberOfHints", this.numberOfHints - 1);
       },
 
-      ready: function() {
-        this.players = [
-          {},
-          {
-            cards : [
-              {
-                color: 'blue',
-                value: '3'
-              },
-              {
-                color: 'yellow',
-                value: '4'
-              },
-              {
-                color: 'red',
-                value: '1'
-              },
-              {
-                color: 'green',
-                value: '2'
-              }
-            ]
-          }
-        ];
+      attached: function() {
+        this.$.createGameRequest.generateRequest();
+      },
+
+      fetchGame: function() {
+        this.$.getGameRequest.generateRequest();
       }
     });
   </script>

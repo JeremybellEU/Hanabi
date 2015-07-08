@@ -4,21 +4,13 @@
   <style>
     :host {
       border: black 3px solid;
-      display: block;
+      float: left;
       height: 175px;
       width: 750px;
     }
 
     :host[current-player] {
       background-color: yellow;
-    }
-
-    :host[current-player] ::content hanabi-card[unknown-color] .color:before {
-      content: "Color";
-    }
-
-    :host[current-player] ::content hanabi-card[unknown-value] .value:before {
-      content: "Value";
     }
 
     :host[current-player] hanabi-reveal {
