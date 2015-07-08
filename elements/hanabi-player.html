@@ -20,8 +20,8 @@
 
   <template>
     <div>
-      <template is="dom-repeat" items="{{cards}}" id="cards">
-        <hanabi-card color="{{item.color}}" value="{{item.value}}" unknownColor="{{item.unknownColor}}"></hanabi-card>
+      <template is="dom-repeat" items="{{cards}}">
+        <hanabi-card color="{{item.color}}" value="{{item.value}}"></hanabi-card>
       </template>
     </div>
 
@@ -32,12 +32,22 @@
   </template>
 
   <script>
+    var numberOfPlayers = 0;
+
     Polymer({
       is: "hanabi-player",
 
       properties: {
+        id: {
+          type: Number,
+          readOnly: true,
+          value: function() {
+            return ++numberOfPlayers;
+          }
+        },
         currentPlayer: {
           type: Boolean,
+          value: false,
           reflectToAttribute: true
         },
         cards: {
@@ -46,21 +56,15 @@
       },
 
       revealListener: function(type, value) {
-        console.log(type, value, " has been revealed.");
+        console.log(type, value, " has been revealed for player ", this.get("id"));
 
-        var i = 0;
+        var cards = this.querySelectorAll("hanabi-card");
 
-        var that = this;
-
-        this.cards.forEach(function(card) {
-          if (card[type] == value) {
-            that.set("cards." + i + ".unknown" + type.charAt(0).toUpperCase() + type.slice(1), false);
+        Array.prototype.forEach.call(cards, function(card) {
+          if (card.get(type) === value) {
+            card.set("unknown" + type.charAt(0).toUpperCase() + type.slice(1), false);
           }
-
-          i++;
         });
-
-        console.log(this.cards);
       }
     });
   </script>
