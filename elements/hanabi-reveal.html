@@ -39,14 +39,10 @@
         },
         items: {
           type: Array
-        },
-        selected: {
-          type: String,
-          value: 0
         }
       },
 
-      ready: function() {
+      attached: function() {
         if (this.type === "color") {
           this.items = ["blue", "green", "red", "yellow"];
         }
@@ -56,7 +52,7 @@
       },
 
       reveal: function(event, detail, sender) {
-        this.domHost.revealListener(this.type, this.$.select.value);
+        this.domHost.reveal(this.type, this.$.select.value);
       }
     });
   </script>

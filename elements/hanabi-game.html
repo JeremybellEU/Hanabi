@@ -10,36 +10,38 @@
 
   <template>
     <template is="dom-repeat" items="{{players}}">
-      <hanabi-player current-player="{{item.currentPlayer}}" cards="{{item.cards}}"></hanabi-player>
+      <hanabi-player cards="{{item.cards}}"></hanabi-player>
     </template>
+    <p>Number of hints left: <span>{{numberOfHints}}</span></p>
+    <p>Number of lives left: <span>{{numberOfLives}}</span></p>
   </template>
 
   <script>
     Polymer({
       is: "hanabi-game",
+
+      properties: {
+        numberOfHints: {
+          type: Number,
+          value: 9
+        },
+        numberOfLives: {
+          type: Number,
+          value: 3
+        }
+      },
+
+      getNumberOfHints: function() {
+        return this.numberOfHints;
+      },
+
+      spendHint: function() {
+        this.set("numberOfHints", this.numberOfHints - 1);
+      },
+
       ready: function() {
         this.players = [
-          {
-            currentPlayer: true,
-            cards : [
-              {
-                color: 'red',
-                value: '1'
-              },
-              {
-                color: 'green',
-                value: '2'
-              },
-              {
-                color: 'red',
-                value: '1'
-              },
-              {
-                color: 'green',
-                value: '2'
-              }
-            ]
-          },
+          {},
           {
             cards : [
               {

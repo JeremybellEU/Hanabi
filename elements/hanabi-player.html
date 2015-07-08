@@ -13,6 +13,18 @@
       background-color: yellow;
     }
 
+    :host[current-player] ::content hanabi-card[unknown-color] .color:before {
+      content: "Color";
+    }
+
+    :host[current-player] ::content hanabi-card[unknown-value] .value:before {
+      content: "Value";
+    }
+
+    :host[current-player] hanabi-reveal {
+      display: none;
+    }
+
     div {
       display: flex;
     }
@@ -32,6 +44,8 @@
   </template>
 
   <script>
+    var NUMBER_OF_CARDS = 4;
+
     var numberOfPlayers = 0;
 
     Polymer({
@@ -47,7 +61,9 @@
         },
         currentPlayer: {
           type: Boolean,
-          value: false,
+          value: function() {
+            return numberOfPlayers == 1;
+          },
           reflectToAttribute: true
         },
         cards: {
@@ -55,8 +71,24 @@
         }
       },
 
-      revealListener: function(type, value) {
-        console.log(type, value, " has been revealed for player ", this.get("id"));
+      attached: function() {
+        if (typeof this.cards === "undefined") {
+          var cards = [];
+
+          for (var i = 0; i < NUMBER_OF_CARDS; i++) {
+            cards.push({});
+          }
+
+          this.cards = cards;
+        }
+      },
+
+      reveal: function(type, value) {
+        if (this.domHost.getNumberOfHints() == 0) {
+          return;
+        }
+
+        console.log(type, value, "has been revealed for player", this.get("id"));
 
         var cards = this.querySelectorAll("hanabi-card");
 
@@ -65,6 +97,8 @@
             card.set("unknown" + type.charAt(0).toUpperCase() + type.slice(1), false);
           }
         });
+
+        this.domHost.spendHint();
       }
     });
   </script>
